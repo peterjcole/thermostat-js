@@ -20,24 +20,42 @@ describe("Thermostat", function() {
   });
 
   it("won't let the user decrease beyond 10 degrees", function() {
-    thermostat.decrease(10)
-    thermostat.decrease(1)
-    expect(thermostat._temperature).toEqual(10)
-  })
+    thermostat.decrease(11)
+    expect(thermostat._temperature).toEqual(thermostat._minimum)
+  });
 
   it("won't let the user increase beyond 25 degrees by default", function() {
-    thermostat.increase(5)
-    thermostat.increase(1)
-    expect(thermostat._temperature).toEqual(25)
-  })
+    thermostat.increase(6)
+    expect(thermostat._temperature).toEqual(thermostat._maximum)
+  });
 
   it("is in powersave mode by default", function() {
     expect(thermostat.powerSave()).toEqual(true)
+  });
+
+  it("has a max temperature of 32 degrees when power save mode is off", function() {
+    thermostat.togglePowerSave()
+    thermostat.increase(13)
+    expect(thermostat._temperature).toEqual(thermostat._maximum)
+  });
+
+  it("Reset temperature to 20", function() {
+    thermostat.increase(5)
+    thermostat.reset()
+    expect(thermostat._temperature).toEqual(20)
+  });
+
+  it("Turn Power Save off, then on again", function() {
+    thermostat.togglePowerSave()
+    thermostat.togglePowerSave()
+    expect(thermostat.powerSave()).toEqual(true)
   })
 
-  xit("has a max temperature of 32 degrees when power save mode is off", function() {
+  it("Testing togglePowerSave with maximum", function() {
     thermostat.togglePowerSave()
-    thermostat.increase()
-  })
+    thermostat.togglePowerSave()
+    thermostat.increase(6)
+    expect(thermostat._temperature).toEqual(thermostat._maximum)
+  });
 
 });
