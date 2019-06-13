@@ -55,7 +55,7 @@ $(document).ready(function() {
     $('#weatherImage').attr('src',`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`)
   }
 
-  function temperatureUpdate() {git
+  function temperatureUpdate() {
     $('#tempDisplay').text(thermostat.temperature)
   }
 
