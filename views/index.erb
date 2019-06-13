@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Thermostat</title>
+    <script src="src/thermostat.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="src/config.js"></script>
+    <script src="src/thermostat_controller.js"></script>
+  </head>
+  <body>
+    <p id="tempDisplay">Temp: </p>
+    <p id="energyUsageDisplay">Energy Usage: </p>
+    <button type="button" id="tempUp">Up</button>
+    <button type="button" id="tempDown">Down</button>
+    <p id="powerSaveDisplay">Power saver:</p>
+    <button type="button" id="togglePowerSave">Power Saver</button>
+    <button type="button" id="reset">Reset</button>
+
+    <p><span>Outside Temp: </span><span id="outsideTemp"></span></p>
+    <p id="weatherWord"></p>
+    <img id="weatherImage" src=""></p>
+
+    <input type="text" id='weatherInput' value="Enter your city or postcode">
+    <button type="submit" id="weatherSubmit">Search</button>
+  </body>
+</html>
