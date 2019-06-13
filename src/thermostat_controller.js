@@ -4,15 +4,22 @@ $(document).ready(function() {
   var thermostat = new Thermostat()
   var weather
 
-  function getWeather() {
-    $.get('https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=' + config.weather_key, function(r){
+  function getWeather(location) {
+    $.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${config.weather_key}`, function(r){
       weather = r
       weatherUpdate(weather)
     })
   }
 
-  getWeather()
   updateScreen()
+
+  $('#weatherInput').focus(function() {
+    $( this ).val('')
+  })
+
+  $('#weatherSubmit').click(function() {
+    getWeather($('#weatherInput').val())
+  })
 
   $('#tempUp').click(function() {
     thermostat.increase(1)
@@ -28,7 +35,6 @@ $(document).ready(function() {
   $('#reset').click(function() {
     thermostat.reset()
     updateScreen()
-
   })
 
   $('#togglePowerSave').click(function() {
@@ -46,9 +52,10 @@ $(document).ready(function() {
   function weatherUpdate(weather) {
     $('#outsideTemp').text(Math.round(weather.main.temp - 273.15))
     $('#weatherWord').text(weather.weather[0].description)
+    $('#weatherImage').attr('src',`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`)
   }
 
-  function temperatureUpdate() {
+  function temperatureUpdate() {git
     $('#tempDisplay').text(thermostat.temperature)
   }
 
