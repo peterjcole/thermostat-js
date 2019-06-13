@@ -6,27 +6,27 @@ describe("Thermostat", function() {
   });
 
   it("Thermostat set at 20 degrees", function(){
-    expect(thermostat._temperature).toEqual(20)
+    expect(thermostat.temperature).toEqual(20)
   });
 
   it("Increase temperature", function(){
     thermostat.increase(5)
-    expect(thermostat._temperature).toEqual(25)
+    expect(thermostat.temperature).toEqual(25)
   });
 
   it("Increase temperature", function(){
     thermostat.decrease(5)
-    expect(thermostat._temperature).toEqual(15)
+    expect(thermostat.temperature).toEqual(15)
   });
 
   it("won't let the user decrease beyond 10 degrees", function() {
     thermostat.decrease(11)
-    expect(thermostat._temperature).toEqual(thermostat._minimum)
+    expect(thermostat.temperature).toEqual(thermostat._minimum)
   });
 
   it("won't let the user increase beyond 25 degrees by default", function() {
     thermostat.increase(6)
-    expect(thermostat._temperature).toEqual(thermostat._maximum)
+    expect(thermostat.temperature).toEqual(thermostat._maximum)
   });
 
   it("is in powersave mode by default", function() {
@@ -36,13 +36,13 @@ describe("Thermostat", function() {
   it("has a max temperature of 32 degrees when power save mode is off", function() {
     thermostat.togglePowerSave()
     thermostat.increase(13)
-    expect(thermostat._temperature).toEqual(thermostat._maximum)
+    expect(thermostat.temperature).toEqual(thermostat._maximum)
   });
 
   it("Reset temperature to 20", function() {
     thermostat.increase(5)
     thermostat.reset()
-    expect(thermostat._temperature).toEqual(20)
+    expect(thermostat.temperature).toEqual(20)
   });
 
   it("Turn Power Save off, then on again", function() {
@@ -55,7 +55,7 @@ describe("Thermostat", function() {
     thermostat.togglePowerSave()
     thermostat.togglePowerSave()
     thermostat.increase(6)
-    expect(thermostat._temperature).toEqual(thermostat._maximum)
+    expect(thermostat.temperature).toEqual(thermostat._maximum)
   });
 
   it("Will return low-usage when below 18", function() {
