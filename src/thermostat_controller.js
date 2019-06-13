@@ -1,9 +1,19 @@
 
 
-$(document).ready(function() {
-  
-  var thermostat = new Thermostat()
 
+$(document).ready(function() {
+
+  var thermostat = new Thermostat()
+  var weather
+
+  function getWeather() {
+    $.get('https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=aa0529eec1c902a5887400de5ef21c48', function(r){
+      weather = r
+      weatherUpdate(weather)
+    })
+  }
+
+  getWeather()
   updateScreen()
 
   $('#tempUp').click(function() {
@@ -35,6 +45,11 @@ $(document).ready(function() {
     energyUsageUpdate()
   }
 
+  function weatherUpdate(weather) {
+    $('#outsideTemp').text(Math.round(weather.main.temp - 273.15))
+    $('#weatherWord').text(weather.weather[0].description)
+  }
+
   function temperatureUpdate() {
     $('#tempDisplay').text(thermostat.temperature)
   }
@@ -49,4 +64,3 @@ $(document).ready(function() {
 
 
 })
-
