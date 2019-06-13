@@ -58,4 +58,18 @@ describe("Thermostat", function() {
     expect(thermostat._temperature).toEqual(thermostat._maximum)
   });
 
+  it("Will return low-usage when below 18", function() {
+    thermostat.decrease(4)
+    expect(thermostat.energyUsage()).toEqual("low-usage")
+  });
+
+  it("Will return medium-usage when below 25", function() {
+    expect(thermostat.energyUsage()).toEqual("medium-usage")
+  });
+
+  it("Will return high-usage when 25 or above", function() {
+    thermostat.increase(5)
+    expect(thermostat.energyUsage()).toEqual("high-usage")
+  });
+
 });
