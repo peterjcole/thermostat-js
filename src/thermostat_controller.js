@@ -5,9 +5,18 @@ $(document).ready(function() {
   var weather
 
   function getWeather(location) {
-    $.get(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${config.weather_key}`, function(r){
-      weather = r
-      weatherUpdate(weather)
+    $.ajax({
+      type: 'GET',
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${config.weather_key}`,
+      statusCode: {
+        404: function(responseObject, textStatus, jqXHR) {
+          alert('Location not found')
+        },
+      }
+    })
+    .done(function(r){
+        weather = r
+        weatherUpdate(weather)
     })
   }
 
