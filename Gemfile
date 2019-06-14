@@ -14,6 +14,7 @@ gem 'selenium-webdriver'
 gem 'shotgun'
 gem 'sinatra', '1.4.8'
 gem 'sinatra-flash'
+gem 'sinatra-contrib'
 
 group :test do
   gem 'capybara'

@@ -13,3 +13,4 @@ DataMapper.setup(:default, database_connection)
 
 DataMapper.finalize
 DataMapper.send(action)
+Thermostat.create(city: 'Manchester', temp: 21, power_save: false)

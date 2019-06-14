@@ -5,6 +5,7 @@ class Thermostat
 
   property :id,            Serial
   property :temp,          Integer
-  property :energy_saving, Boolean
+  property :power_save,    Boolean
   property :city,          String
 end
+

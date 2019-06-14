@@ -40,3 +40,8 @@ Thermostat.prototype.energyUsage = function() {
     return "high-usage";
   }
 }
+
+Thermostat.prototype.update = function(temperature, powerSave) {
+  this.temperature = temperature
+  this._powerSave = powerSave
+}

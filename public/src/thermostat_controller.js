@@ -3,6 +3,9 @@ $(document).ready(function() {
 
   var thermostat = new Thermostat()
   var weather
+  getThermostat()
+
+
 
   function getWeather(location) {
     $.ajax({
@@ -16,40 +19,73 @@ $(document).ready(function() {
     })
     .done(function(r){
         weather = r
+        console.log(r)
         weatherUpdate(weather)
     })
   }
 
-  updateScreen()
+  function getThermostat() {
+    $.ajax({
+      type: 'GET',
+      url: `/thermostat`
+    })
+    .done(function(result){
+      console.log(result)
+      updateLocalThermostatAndWeather(result)
+      updateScreen()
+      updateWeather()
+    })
+  }
+
+
+  function updateLocalThermostatAndWeather(result) {
+    thermostat.update(result.temp, result.power_save)
+    $('#weatherInput').val(result.city)
+  }
+
+  function updateRemoteThermostatAndWeather() {
+    $.ajax({
+      type: 'POST',
+      url: '/thermostat',
+      data: { 'temp': thermostat.temperature, 'power_save': thermostat.powerSave(), 'city': $('#weatherInput').val() }
+    })
+  }
+
+  function updateWeather() {
+    getWeather($('#weatherInput').val())
+  }
 
   $('#weatherInput').focus(function() {
     $( this ).val('')
   })
 
   $('#weatherSubmit').click(function() {
-    getWeather($('#weatherInput').val())
+    updateWeather()
+    updateRemoteThermostatAndWeather()    
   })
 
   $('#tempUp').click(function() {
     thermostat.increase(1)
     updateScreen()
+    updateRemoteThermostatAndWeather()
   })
 
   $('#tempDown').click(function() {
     thermostat.decrease(1)
     updateScreen()
-
+    updateRemoteThermostatAndWeather()
   })
 
   $('#reset').click(function() {
     thermostat.reset()
     updateScreen()
+    updateRemoteThermostatAndWeather()
   })
 
   $('#togglePowerSave').click(function() {
     thermostat.togglePowerSave()
     updateScreen()
-
+    updateRemoteThermostatAndWeather()
   })
 
   function updateScreen() {

@@ -4,6 +4,7 @@
 #   User.create(username: 'Magpie', password: 'password')
 # end
 
+
 # def create_peeps 
 #   Peep.create(text: "First ever peep!!!!",
 #               created_at: Time.now,
